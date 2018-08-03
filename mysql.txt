@@ -1,0 +1,87 @@
+启动:service mysql start
+关闭：service mysql stop
+登录：mysql -uroot -p -P3306 -h127.0.0.1
+退出：exit;
+     quit;
+     \q;
+修改提示符　prompt 提示符（\D完整日期 \d当前数据库 \h服务器名称 \u当前用户）
+
+
+
+创建数据库　create {database|schema} [if not exists] db_name 
+	 [default] character set [=] charset_name;
+查看警告信息：　show warnings;
+显示当前服务器下的数据库：　show databases;
+显示数据库创建时使用的指令：　show create database db_name;
+创建制定编码数据库：　create database user character set utf8;
+修改数据库的编码方式：　alter database db_name character set = utf8;
+删除数据库：　drop database [if exists[ db_name;
+
+打开数据库：　use db_name;
+显示当前打开的数据库：　select database();
+创建数据表：create table [if not exists] table_name(
+	 column_name data_type not null,
+	 column_name data_type,
+	 ) 
+查看当前数据库下的数据表：show tables [from db_name(查看别的数据库中的数据表)]；
+查看数据表的结构：　show columns from tbl_name;
+插入记录：　insert [into] tbl_name[(col_name,...)] values(val,..);
+查看整个数据表的记录：select * from tbl_name;
+
+自动编号字段和主键　create table user(
+	　	id smallint unsigned auto_increment　primary key,
+		username varchar(20) not null);
+主键默认为not null , 自动编号字段不用赋值，其自动赋值；
+
+唯一约束：　unique key;(可以为空)
+默认约束：　default 默认值;
+
+外键：foreign key(col_name) references tbl_name(col_name)
+create table user(
+	id smallint unsigned auto_increment　primary key,
+	username varchar(20) not null,
+	pid smallint,
+	from key(pid) references user1(id)　on delete cascade);
+
+查看索引：show indexes from tbl_name;
+查看索引：show indexes from tbl_name\G;(网格形式)
+
+cascade: 父表中删除和更新记录时，子表也会更新删除相应的行。
+set null:父表中删除和更新记录时，子表会设置对应行为空。
+restrict: 拒绝父表的更新删除。
+
+添加单列：alter table tbl_name add [column] col_name 
+	column_definition [first|after col_name];
+添加多列：alter table tbl_name add [column]
+	(col_name column_definition,...);
+删除列：alter table tbl_name drop col_name1, drop col_name2...;
+添加主键约束：alter table tbl_name add constraint key_name 
+	primary key [idex_type] (col_name);
+添加唯一约束：alter table tbl_name add constraint key_name 
+	unique key (col_name, colname, ..);
+添加外键约束：alter table tbl_name1 add foreign key (colname1) 
+	   references tbl_name2 (colname2);
+添加删除默认约束：alter table tbl_name alter [column] col_name
+		{set default literal | drop default};
+删除主键约束：alter table tbl_name drop primary key;
+删除唯一约束：alter table tbl_name drop ｛index|key｝index_name;
+删除外键约束：alter table tbl_name drop foreign key key_name;
+
+修改列定义：alter table tbl_name modify [column] col_name
+	column_definition [first|after colname];
+修改列名称：alter table tbl_name change old_col_name 
+	new_col_name col_definition [first|after col_name];
+修改数据表名字：　alter table tbl_name rename new_tbl_name;
+修改数据表名字：rename table tbl_name to new_tbl_name 
+		[, tbl_name to new_name]...;
+
+
+
+
+
+
+
+
+
+
+
